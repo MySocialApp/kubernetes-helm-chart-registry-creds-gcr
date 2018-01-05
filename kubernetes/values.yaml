@@ -1,0 +1,6 @@
+registryCredsReplicaCount: 1
+registryCredsNodeSelector:
+  node-role.kubernetes.io/node: "true"
+
+registryCredsImageVersion: 1.8
+registryCredsAppDefaultCredsJson: ""

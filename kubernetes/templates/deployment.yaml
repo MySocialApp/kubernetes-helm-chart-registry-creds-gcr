@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "kubernetes.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "kubernetes.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    version: v{{ .Values.registryCredsImageVersion }}
+spec:
+  replicas: {{ .Values.registryCredsReplicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kubernetes.name" . }}
+        release: {{ .Release.Name }}
+        version: v{{ .Values.registryCredsImageVersion }}
+    spec:
+      nodeSelector:
+        {{- range $key, $val := .Values.registryCredsNodeSelector }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end}}
+      containers:
+        - name: registry-creds
+          image: "upmcenterprises/registry-creds:{{ .Values.registryCredsImageVersion }}"
+          volumeMounts:
+          - name: {{ template "kubernetes.name" . }}
+            mountPath: "/root/.config/gcloud"
+            readOnly: true
+      volumes:
+      - name: {{ template "kubernetes.name" . }}
+        secret:
+          secretName: {{ template "kubernetes.name" . }}
