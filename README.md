@@ -1,4 +1,7 @@
 # kubernetes-helm-chart-registry-creds-gcr
+
+You can find here a helm chart we're using at [MySocialApp](https://mysocialapp.io) (iOS and Android social app builder - SaaS)
+
 Kubernetes Helm Chart for registry-creds GCR
 
 # Usage
