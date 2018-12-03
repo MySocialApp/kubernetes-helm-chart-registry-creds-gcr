@@ -25,6 +25,8 @@ spec:
       containers:
         - name: registry-creds
           image: "upmcenterprises/registry-creds:{{ .Values.registryCredsImageVersion }}"
+          resources:
+{{ toYaml .Values.registryCredsResources | indent 12 }}
           volumeMounts:
           - name: {{ template "kubernetes.name" . }}
             mountPath: "/root/.config/gcloud"

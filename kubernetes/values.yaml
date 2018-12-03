@@ -4,3 +4,9 @@ registryCredsNodeSelector:
 
 registryCredsImageVersion: 1.8
 registryCredsAppDefaultCredsJson: ""
+
+registryCredsResources:
+  limits:
+    memory: 64Mi
+  requests:
+    memory: 32Mi
